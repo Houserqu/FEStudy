@@ -1,0 +1,249 @@
+<!-- <!DOCTYPE html>
+<html>
+<body>
+
+<form>
+<input type="button" value="Start count!" onClick="timedCount()">
+<input type="text" id="txt">
+<input type="button" value="Stop count!" onClick="stopCount()">
+</form>
+
+<script>
+function timedCount(){
+	//alert("hello");
+	//window.close();
+	//window.resizeTo();
+	//window.open("http://www.baidu.com");
+	
+	//document.write(location.href);
+	//document.write(location.pathname);
+	//window.location.assign("http://www.baidu.com");
+	//confirm("confirm");
+	//alert("alert");
+	//var p = prompt("文本","默认值");
+	//document.write(p);
+
+	//var t = setTimeout("alert('5')",3000);
+
+	document.getElementById('txt').value=c;
+	c=c+1;
+	t=setTimeout("timedCount()",1000);
+	}
+
+}
+function stopCount()
+	{
+		clearTimeout(t);
+	}
+</script>
+
+</body>
+</html> -->
+
+
+<!-- <html>
+<head>
+<script type="text/javascript">
+function getCookie(c_name)
+{
+if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=")
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1 
+    c_end=document.cookie.indexOf(";",c_start)
+    if (c_end==-1) c_end=document.cookie.length
+    return unescape(document.cookie.substring(c_start,c_end))
+    } 
+  }
+return ""
+}
+
+function setCookie(c_name,value,expiredays)
+{
+var exdate=new Date()
+exdate.setDate(exdate.getDate()+expiredays)
+document.cookie=c_name+ "=" +escape(value)+
+((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+}
+
+function checkCookie()
+{
+username=getCookie('username')
+if (username!=null && username!="")
+  {alert('Welcome again '+username+'!')}
+else 
+  {
+  username=prompt('Please enter your name:',"")
+  if (username!=null && username!="")
+    {
+    setCookie('username',username,365)
+    }
+  }
+}
+</script>
+</head>
+
+<body onLoad="checkCookie()">
+</body>
+</html> -->
+
+<!-- <html>
+<head>
+	<title>js对象</title>
+</head>
+<body>
+	<script type="text/javascript">
+	/*function max(a,b){
+		return a>b?a:b;
+	}
+	console.log(max(5,6));
+
+	var func = max;
+	console.log(func(8,9));
+
+	function max1(){
+		var maxValue = arguments[0];
+
+		for(var i=0; i<arguments.length; i++)
+			maxValue = max(maxValue,arguments[i]);
+		return maxValue;
+	}
+	console.log(max1(4,5,hello));*/
+
+	function A(){
+		//对象方法
+		this.sayhe = function(){
+			console.log("sayhe");
+		};
+	}
+
+		//原型方法
+	A.prototype.say = function(){
+		console.log("js");
+	}
+		//类方法
+	A.sayhi = function(){
+		console.log("hi");
+	}
+
+	var a = new A();
+	a.say();
+	A.sayhi();
+
+
+		//继承
+	function B(){
+
+	}
+	B.prototype = new A();
+
+	var b = new B();
+	b.say();
+	b.sayhe();
+
+	var json = [{"name":"tom",sex:5},{"info":"xxxx","A":"AAA"}];
+	console.log(json[0].sex);
+
+	</script>
+</body>
+</html> -->
+
+<html>
+<head>
+	<title>AJAX</title>
+</head>
+<body>
+	AJAX
+	<hr>
+	<button onlick="testCreateXhr();">创建XHR对象</button>
+	
+
+	<script type="text/javascript">
+		function testCreateXhr(){
+			var xhr = createXHR2();
+
+			/*xhr.open('GET','http://test/keyword/hit?keyword=c',true);
+			//xhr.open('请求方式'，'URL','true=异步/false=同步','用户名','密码')
+			xhr.setRequestHeader("Content-Type","application/json");
+			xhr.send();*/
+
+			xhr.open('POST','http://test/keyword/hit',true);
+			xhr.setRequestHeader("Content-Type","application/json");
+			//xhr.setRequestHeader("test","value");  自定义请求头
+			xhr.send(JSON.stringify({	//序列化
+				keyword:'c',
+				//other:'test'
+			}));
+
+			xhr.timeout = 5000;//超时设置
+
+			xhr.ontimeout = function(){
+				console.log('timeout!');
+			}
+
+			//仅xhr level 2支持
+			xhr.onload = function(){
+				if (xhr.status == 200)
+					console.log('load,%s',xhr.responseText);
+			}
+
+			//传统方式,兼容性好
+			xhr.onreadystatechange = function(e){
+				if(xhr.readyState === 4 && xhr.status == 200){
+					console.log(xhr.responseText);
+					//eval(xhr.responseText);转换成字符串
+					//console.log(xhr.responseXML);
+
+					//获得所有的头
+					console.log(xhr.getAllResponseHeaders());
+
+					//获得指定的头
+					console.log(xhr.getResponseHeaders("Content-Type"));
+
+					//获取响应状态
+					console.log(xhr.status);
+
+					//获取响应状态文本
+					console.log(xhr.statusText);
+				}
+
+				/*readyState 5种状态
+				0：未初始化
+				1：建立连接，请求发出
+				2：服务器返回响应
+				3：交互（处理响应数据）
+				4：完成，数据可交付客户端使用*/
+			}
+		}
+
+		//创建对象
+		//ie7+和其他浏览器都支持
+		//XMLHttpRequest 有 level1 和 level2 两版本
+		//现代浏览器都支持 level 2
+		//xhr level 2新支持 timeout(超时) CORS(跨域) upload(文件上传)
+		function createXHR(){
+			return new XMLHttpRequest();
+		}
+
+		//创建对象：兼容版
+		function createXHR2(){
+			var xhr = null;
+
+			if(window.XMLHttpRequest){
+				xhr = new XMLHttpRequest();
+			}else if(window.ActiveXObject){
+				try{
+					xhr = new ActiveXObject('Msxm12.XMLHTTP');
+				} catch(e){
+					try{
+						xhr = new ActiveXObject('Microsoft.XMLHTTP');
+					} catch (e){}
+				}
+			}
+			return xhr;
+		}
+	</script>
+</body>
+</html>

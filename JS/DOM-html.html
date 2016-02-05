@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM-html</title>
+    <script type="text/javascript">
+        function changeImg(){
+            //document.getElementById("iImg").width=600;
+            //document.getElementById("iImg").src="http://pic.qiantucdn.com/58pic/10/99/93/72P58PICu8h.jpg";
+            document.getElementById("iImg").setAttribute("width","600px");
+
+        }
+        function changeImg2(){
+            //document.getElementById("iImg").width=600;
+            document.getElementById("iImg").src="http://www.bz55.com/uploads/allimg/130803/1-130P3112Q0.jpg";
+        }
+        function fun(event){
+            x = event.clientX;
+            y = event.clientY;
+            alert(x+"  "+y);
+        }
+
+        function addNode(){
+            var pare = document.createElement("p");
+            var node = document.createTextNode("2222222");
+            pare.appendChild(node);
+
+            var elemetnt = document.getElementById("ps");
+            elemetnt.appendChild(pare);
+        }
+        function  deleteNode(parentid,id){
+            var child = document.getElementById(id);
+            /*
+            方法一
+            var parent = document.getElementById(parentid);
+
+
+            parent.removeChild(child);
+            */
+
+            //方法二
+            child.parentNode.removeChild(child);
+        }
+
+        /*
+        关闭页面弹出对话框
+
+            非阻塞
+            return confirm("确定退出吗");
+        }
+
+
+            阻塞
+        window.onbeforeunload = function(){
+            return "thanks";
+        }*/
+    </script>
+</head>
+<body onload="alert('welcome')" onunload="alert('thanks')">
+    <img class="cImg" id="iImg" name="nImg" width="300px" height="300px" onmousedown="changeImg()" onmouseup="changeImg2()"
+         src="http://www.bz55.com/uploads/allimg/130803/1-130P3112Q0.jpg">
+    <div id="ps" onclick="deleteNode('ps','p1')">
+        <p id="p1">11111111</p>
+        <p id="p2">33333333</p>
+    </div>
+</body>
+</html>
