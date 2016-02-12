@@ -4,6 +4,27 @@
     <title>Object</title>
     <script type="text/javascript">
 
+        student = new Object();     //直接创建实例
+        student.name = "Tom";
+        student.age = 15;
+
+        student2={name:"jhon",age:18};
+
+        function student3(name,age){    //对象构造器，使用函数构造对象
+            this.name = name;
+            this.age = age;
+
+            this.changeName = changeName;   //把方法添加到 JavaScript 对象
+            function changeName(inName){
+                this.name = inName;
+            }
+        }
+        var student4 = new student3("34",12);
+        student4.changeName("jack");
+
+        console.log(student4.name);
+
+        console.log(student4.changeName);
     </script>
 </head>
 <body>
