@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time</title>
+
+</head>
+<body>
+    <p id="pid">shijian</p>
+    <button onclick="stopTime()">Stop</button>
+    <script type="text/javascript">
+
+        function myTime(){
+            var myDate = new Date();
+            //alert(myDate);
+            document.getElementById("pid").innerHTML=myDate;
+        }
+        function stopTime(){
+            clearInterval(t)
+        }
+        var t = setInterval(function () {   //间隔一定时间执行函数
+            myTime();
+        },1000);
+
+        var t2 = setTimeout(function () {   //暂停一定时间执行函数
+            stopTime();
+        },3000);
+
+    </script>
+</body>
+</html>

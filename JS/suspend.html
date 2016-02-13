@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>悬浮框</title>
+    <script style="text/script">
+        function mover(){
+            var num = window.event;
+            //获取事件点击元素
+            var targ = num.target;
+            //获取元素名称
+            var tname = targ.tagName;
+            //alert(tname);
+
+            targ.nextElementSibling.style.display='block';
+        }
+        function mout(){
+            var num = window.event;
+            //获取事件点击元素
+            var targ = num.target;
+            //获取元素名称
+            var tname = targ.tagName;
+            //alert(tname);
+
+            targ.nextElementSibling.style.display='none';
+        }
+    </script>
+
+    <style>
+        .article{
+            height: 30px;
+            position: relative;
+        }
+        .suspend{
+            position: fixed;
+            z-index: 100;
+            display: none;
+            background-color: red;
+            width: 320px;
+            height: 240px;
+        }
+        img{
+            width: 320px;
+            height: 240px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="article">
+            <a class="arcTitle" onmouseover="mover()" onmouseout="mout()" href="#">Article title1111111111111</a>
+            <img class="suspend" src="http://img4.duitang.com/uploads/item/201108/23/20110823095649_ZZhHv.jpg">
+        </div>
+
+        </br></br>
+
+        <div class="article">
+            <a class="arcTitles" onmouseover="mover()" onmouseout="mout()" href="#">Article title22222222222222</a>
+            <div class="suspend"><img src="http://cdn.duitang.com/uploads/item/201207/18/20120718215150_QyFQZ.jpeg"></div>
+        </div>
+
+    </div>
+</body>
+</html>
