@@ -1,0 +1,132 @@
+<!DOCYTYPE html>
+<html>
+<head>
+    <title>选项卡切换效果</title>
+
+    <style>
+        ul{
+            margin: 0;
+            padding: 0;
+        }
+        .hide{
+            display: none;
+        }
+        .display{
+            background-color: red;
+            display: block;
+        }
+        .tag{
+            width: 600px;
+            height: 400px;
+            margin: auto;
+        }
+        #menu{
+            height: 30px;
+            width: 600px;
+        }
+        #menu li{
+            line-height: 50px;
+            float: left;
+            width: 200px;
+            height: 30px;;
+            text-align: center;
+        }
+        .select{
+            background-color: red;
+        }
+        #content{
+            height: 350px;
+        }
+        #content div{
+            height: 200px;
+        }
+        .content div{
+            background-color: yellow;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="tag">
+        <ul id="menu">
+            <li id="movie">Movie</li>
+            <li >Music</li>
+            <li >Story</li>
+        </ul>
+
+        <div id="content"><div class="hide" >Movie Movie Movie Movie Movie Movie Movie Movie</div><div class="hide">Music Music Music Music Music Music Music Music</div><div class="hide">Story Story Story Story Story Story Story Story</div></div>
+    </div>
+    <script type="text/javascript">
+        //方法 1
+        /*需要在每个<li>中添加属性 onmouseover="change(this)"
+        var lis = document.getElementsByTagName("li");
+        var contents = document.getElementById("content").childNodes;
+
+        function change(mouseover){
+            for(var x=0; x < lis.length; x++){
+                if(lis[x]==mouseover){
+                    lis[x].className = "select";
+                    contents[x].className="display";
+                }
+                else{
+                    lis[x].className="";
+                    contents[x].className = "hide";
+                }
+            }
+        }*/
+
+
+        //方法 2   拓展性差
+        /*
+         var lis = document.getElementsByTagName("li");
+         var contents = document.getElementById("content").childNodes;
+
+        lis[0].onmouseover=function() {
+            this.className = "select";
+            contents[0].className = "display";
+        }
+        lis[0].onmouseout=function() {
+            this.className = "";
+            contents[0].className = "hide";
+        }
+        lis[1].onmouseover=function() {
+            this.className = "select";
+            contents[1].className = "display";
+        }
+        lis[1].onmouseout=function() {
+            this.className = "";
+            contents[1].className = "hide";
+        }
+        lis[2].onmouseover=function() {
+            this.className = "select";
+            contents[2].className = "display";
+        }
+        lis[2].onmouseout=function() {
+            this.className = "";
+            contents[2].className = "hide";
+        }*/
+
+        //方法 3  js,html,css分离
+
+        function change(){
+            var lis = document.getElementsByTagName("li");
+            var contents = document.getElementById("content").childNodes;
+            for (var i=0; i<lis.length; i++){
+                lis[i].index = i;
+                lis[i].onmousemove = function(){
+                    this.className = "select";
+                    contents[this.index].className = "display";
+                }
+                lis[i].onmouseout = function(){
+                    this.className = "";
+                    contents[this.index].className = "hide";
+                }
+            }
+        }
+        change();
+
+    </script>
+</body>
+
+</html>
