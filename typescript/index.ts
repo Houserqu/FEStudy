@@ -1,5 +1,6 @@
 import {User} from './types/index'
 
+// some thing
 const user: User = {
   name: '1'
 }
