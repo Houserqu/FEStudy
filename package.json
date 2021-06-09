@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "miniprogram-sm-crypto": "^0.2.1",
+    "querystring": "^0.2.0"
+  }
+}

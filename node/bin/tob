@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+// This is used as an example in the README for variadic options.
+
+const commander = require('commander'); // (normal include)
+const {contractAction} = require('./tobFun')
+
+const program = new commander.Command();
+
+program.version('1.0.0')
+
+program
+  .command('contract <contractNO>')
+  .description('合同操作')
+  .option('-d, --delete', '删除合同')
+  .option('-l, --like', '是否用like查询')
+  .action(contractAction)
+
+program
+  .command('merchant <fofferId>')
+  .description('商户操作')
+  .option('-n, --number <value...>', 'specify numbers')
+
+program.parse();
